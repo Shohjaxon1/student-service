@@ -4,10 +4,10 @@ import (
 	"net"
 
 	"student-service/config"
-	pb "student-service/genproto/user_service"
+	pb "student-service/genproto/student-service"
 	"student-service/pkg/db"
 	"student-service/pkg/logger"
-	student-service "student-service/service" // Rename the package to avoid conflict
+	student_service "student-service/service" // Rename the package to avoid conflict
 
 	"google.golang.org/grpc"
 )
@@ -28,7 +28,8 @@ func main() {
 		log.Fatal("sqlx connection to postgres error", logger.Error(err))
 	}
 
-	UsersService := student-service.NewUserService(connDB, log)
+	StudentService := student_service.NewStudentService(connDB, log)
+	CourseService := student_service.NewCourseService(connDB, log)
 
 	lis, err := net.Listen("tcp", cfg.RPCPort)
 	if err != nil {
@@ -36,8 +37,8 @@ func main() {
 	}
 
 	s := grpc.NewServer()
-	pb.RegisterUserServiceServer(s, UsersService)
-	pb.RegisterCarServiceServer(s, UsersService)
+	pb.RegisterStudentServiceServer(s, StudentService)
+	pb.RegisterCourseServiceServer(s, CourseService)
 	log.Info("main: server running",
 		logger.String("port", cfg.RPCPort))
 

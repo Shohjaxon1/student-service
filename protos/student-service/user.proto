@@ -1,0 +1,130 @@
+syntax = "proto3";
+
+package student;
+
+option go_package = "student";
+
+service StudentCourseService {
+    rpc GetStudentsCourse(GetByIdRequest) returns (Course);
+    rpc CourseAverageScore(GetByIdRequest) returns (AverageScoreResponse);
+    rpc GetIdFromStudentCourse(StudentCourseRequest) returns (StudentCourse);
+    rpc BestStudent(Empty) returns (BestStudentResponse);
+    rpc ReleaseGroupWithBestReading(Empty) returns (ReleaseResponse);
+    rpc YoungestStudentPerGroup(Empty) returns (YoungestStudentResponse); 
+}
+
+service CourseService {
+    rpc CreateCourse(Course) returns (Course);
+    rpc GetCourseById(GetByIdRequest) returns (Course);
+    rpc GetAllCourses(GetAllRequest) returns (AllCourses);
+    rpc UpdateCourse(Course) returns (Course);
+    rpc DeleteCourse(GetByIdRequest) returns (Course);
+}
+
+service StudentService {
+    rpc CreateStudent(StudentRequest) returns (Student);
+    rpc GetStudentById(GetByIdRequest) returns (Student);
+    rpc GetAllStudents(GetAllRequest) returns (AllStudents);
+    rpc UpdateStudent(StudentRequest) returns (Student);
+    rpc DeleteStudent(GetByIdRequest) returns (Student);
+}
+
+message StudentRequest {
+    string id = 1;
+    string first_name = 2;
+    string last_name = 3;
+    string date_of_birth = 4;
+    string gender = 5;
+    string phone_number = 6;
+    string address = 7;
+    int32 points = 8;
+}
+
+message Student {
+    string id = 1;
+    string first_name = 2;
+    string last_name = 3;
+    string date_of_birth = 4;
+    string gender = 5;
+    string phone_number = 6;
+    string address = 7;
+    int32 points = 8;
+    string created_at = 9;
+    string updated_at = 10;
+}
+
+message GetByIdRequest {
+    string id = 1;
+}
+
+message GetAllRequest {
+    int32 page = 1;
+    int32 limit = 2;
+}
+
+message StudentCourseRequest {
+    string student_id = 1;
+    string course_id = 2;
+}
+
+message AllStudents {
+    repeated Student students = 1;
+}
+
+message CourseRequest {
+    string id = 1;
+    string course_name = 2;
+    string department = 3;
+    string instructor = 4;
+}
+
+message Course {
+    string id = 1;
+    string course_name = 2;
+    string department = 3;
+    string instructor = 4;
+    string created_at = 5;
+    string updated_at = 6;
+}
+
+message AllCourses {
+    repeated Course courses = 1;
+}
+
+message StudentCourse {
+    string id = 1;
+    string student_id = 2;
+    string course_id = 3;
+}
+
+message AverageScoreResponse {
+    double average_score = 1;
+}
+
+message BestStudentResponse {
+    repeated BestStudent best_students = 1;
+}
+
+message BestStudent {
+    string student_id = 1;
+    string first_name = 2;
+    string last_name = 3;
+    float grade = 4;
+}
+
+message Empty {}
+
+message ReleaseResponse {
+    string group_id = 1;
+}
+
+message YoungestStudentResponse {
+    repeated YoungestStudent youngest_students = 1;
+}
+
+message YoungestStudent {
+    string student_id = 1;
+    string first_name = 2;
+    string last_name = 3;
+    string date_of_birth = 4;
+}

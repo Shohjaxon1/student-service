@@ -7,7 +7,7 @@ proto-gen:
 	./scripts/gen-proto.sh	${CURRENT_DIR}
 
 
-DB_URL := "postgres://postgres:1234@localhost:5432/users_car?sslmode=disable"
+DB_URL := "postgres://postgres:1234@localhost:5432/student?sslmode=disable"
 
 migrate-up:
 	migrate -path migrations -database $(DB_URL) up

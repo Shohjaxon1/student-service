@@ -1,2 +1,1 @@
-student-service
 # student-service

@@ -9,29 +9,29 @@ import (
 
 // IStorage ...
 type IStorage interface {
-	User() repo.UserStorageI
-	Car() repo.CarStorageI
+	Student() repo.StudentStorageI
+	Course() repo.CourseStorageI
 }
 
 type storagePg struct {
 	db       *sqlx.DB
-	userRepo repo.UserStorageI
-	carRepo  repo.CarStorageI
+	studentRepo repo.StudentStorageI
+	courseRepo  repo.CourseStorageI
 }
 
 // NewStoragePg ...
 func NewStoragePg(db *sqlx.DB) *storagePg {
 	return &storagePg{
 		db:       db,
-		userRepo: postgres.NewUserRepo(db),
-		carRepo:  postgres.NewUserRepo(db),
+		studentRepo: postgres.NewStudentRepo(db),
+		courseRepo:  postgres.NewCourseRepo(db),
 	}
 }
 
-func (s storagePg) User() repo.UserStorageI {
-	return s.userRepo
+func (s storagePg) Student() repo.StudentStorageI {
+	return s.studentRepo
 }
 
-func (s storagePg) Car() repo.CarStorageI {
-	return s.carRepo
+func (s storagePg) Course() repo.CourseStorageI {
+	return s.courseRepo
 }

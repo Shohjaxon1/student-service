@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS courses (
+    id UUID PRIMARY KEY NOT NULL,
+    course_name VARCHAR(100) NOT NULL,
+    department VARCHAR(100) NOT NULL,
+    instructor VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP
+);
